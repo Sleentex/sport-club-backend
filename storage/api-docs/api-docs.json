@@ -85,8 +85,7 @@
                                     "last_name",
                                     "email",
                                     "phone_number",
-                                    "password",
-                                    "agree_with_terms"
+                                    "password"
                                 ],
                                 "properties": {
                                     "first_name": {
@@ -122,6 +121,66 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/v1/profile": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get current profile",
+                "description": "Returns user's profile",
+                "operationId": "getUserProfile",
+                "responses": {
+                    "200": {
+                        "description": "Returns user's profile (also in user can be additional fields if user is customer or executor)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserLoginResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logging out",
+                "description": "Loggind out current user",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Succesfully logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         }
     },
