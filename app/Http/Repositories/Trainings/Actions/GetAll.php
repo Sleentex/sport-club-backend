@@ -4,7 +4,10 @@
 namespace App\Http\Repositories\Trainings\Actions;
 
 
+use App\Enums\TrainingStatuses;
+use App\Enums\UserRoles;
 use App\Models\Training;
+use Illuminate\Support\Facades\DB;
 
 class GetAll
 {
@@ -51,20 +54,33 @@ class GetAll
 
     public function init()
     {
-        $this->trainings_q = Training::query()
-            ->where('trainings.status', '!=', 'cancelled');
-
         $this->page  = $this->options->page ?? 1;
         $this->limit = $this->options->limit ?? self::ITEMS_PER_PAGE;
+
+        $this->trainings_q = DB::table('trainings')
+            ->leftJoin('client_trainings', 'client_trainings.training_id', '=', 'trainings.id')
+            ->whereNotIn('trainings.status',  [TrainingStatuses::CANCELLED])
+            ->whereNotIn('client_trainings.status', [TrainingStatuses::CANCELLED]);
+
+        $user = auth()->user();
+        switch ($user->role) {
+            case UserRoles::TRAINER:
+                $this->trainings_q->where('trainings.trainer_id', $user->id);
+                break;
+            case UserRoles::CLIENT:
+                $this->trainings_q->where('client_trainings.client_id', $user->id);
+                break;
+        }
+
 
         return $this;
     }
 
     public function retrieve()
     {
-        $paginator          = $this->trainings_q->orderByDesc('id')->paginate($this->limit, ['*'], 'page', $this->page);
+        $paginator          = $this->trainings_q->orderByDesc('trainings.id')->paginate($this->limit, ['*'], 'page', $this->page);
 
-        $this->trainings     = $paginator->items();
+        $this->trainings    = $paginator->items();
         $this->total        = $paginator->total();
         $this->total_page   = $paginator->lastPage();
 

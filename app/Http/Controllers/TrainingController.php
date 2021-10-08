@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class TrainingController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:api')->only(['joinTraining', 'addTraining']);
+        $this->middleware('auth:api')->only(['joinTraining', 'addTraining', 'getAll']);
         $this->middleware('verify.client')->only(['joinTraining']);
         $this->middleware('verify.trainer')->only(['addTraining']);
 
@@ -34,4 +34,5 @@ class TrainingController extends Controller
         $response = $request->perform();
         return response()->json($response, $response['status_code']);
     }
+
 }

@@ -105,5 +105,5 @@ class JoinTraining extends FormRequest
 
         return $this;
     }
-    
+
 }
