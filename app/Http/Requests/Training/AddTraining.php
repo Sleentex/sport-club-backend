@@ -30,8 +30,8 @@ class AddTraining extends FormRequest
     public function rules()
     {
         return [
-            'start_at' => 'required|date|after:now',
-            'finish_at' => 'required|date|after:start_at',
+            'start_at' => 'required|date_format:Y-m-d H:i:s|after:now',
+            'finish_at' => 'required|date_format:Y-m-d H:i:s|after:start_at',
         ];
     }
 

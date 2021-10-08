@@ -72,20 +72,18 @@ class JoinTraining extends FormRequest
 
     public function check()
     {
-        $training = $this->training;
-
         $client_have_training = DB::table('trainings')
             ->join('client_trainings', 'client_trainings.training_id', '=', 'trainings.id')
             ->where('client_trainings.client_id', $this->client->id)
             ->whereNotIn('trainings.status',  [TrainingStatuses::CANCELLED, TrainingStatuses::FINISHED])
             ->whereNotIn('client_trainings.status', [TrainingStatuses::CANCELLED, TrainingStatuses::FINISHED])
-            ->where(function ($query) use ($training){
+            ->where(function ($query) {
                 $query
-                    ->where('trainings.start_at', '>=', $training->start_at)
-                    ->where('trainings.start_at', '<', $training->finish_at)
+                    ->where('trainings.start_at', '>=', $this->training->start_at)
+                    ->where('trainings.start_at', '<', $this->training->finish_at)
 
-                    ->orWhere('trainings.start_at', '<=', $training->start_at)
-                    ->where('trainings.finish_at', '>=', $training->start_at);
+                    ->orWhere('trainings.start_at', '<=', $this->training->start_at)
+                    ->where('trainings.finish_at', '>=', $this->training->start_at);
             })
             ->exists();
         if ($client_have_training) {

@@ -31,19 +31,20 @@ Route::middleware(['api'])->group(function($router) {
 
         Route::group(['prefix' => 'trainers'], function () {
             Route::get('/', [TrainerController::class, 'getAll']);
-            Route::post('/add-training', [TrainingController::class, 'addTraining']);
 
             Route::group(['prefix' => '{id}'], function () {
                 Route::get('/', [TrainerController::class, 'getById']);
-
             });
         });
 
         Route::group(['prefix' => 'trainings'], function () {
             Route::get('/', [TrainingController::class, 'getAll']);
+            Route::post('/', [TrainingController::class, 'addTraining']); // add training
 
             Route::group(['prefix' => '{id}'], function () {
                 Route::post('/join', [TrainingController::class, 'joinTraining']);
+                Route::post('/cancel-record', [TrainingController::class, 'cancelRecordTraining']);
+                Route::post('/cancel', [TrainingController::class, 'cancelTraining']);
             });
         });
 
