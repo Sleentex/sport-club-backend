@@ -40,9 +40,9 @@ Route::middleware(['api'])->group(function($router) {
         });
 
         Route::group(['prefix' => 'trainings'], function () {
-            Route::post('/', [TrainingController::class, 'create']);
 
             Route::group(['prefix' => '{id}'], function () {
+                Route::post('/join', [TrainingController::class, 'joinTraining']);
             });
         });
 
