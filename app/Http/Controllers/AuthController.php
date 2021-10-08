@@ -63,10 +63,11 @@ class AuthController extends Controller
      *          @OA\MediaType(
      *              mediaType="multipart/form-data",
      *              @OA\Schema(
-     *              required={"first_name", "last_name", "email", "phone_number", "password"},
+     *              required={"first_name", "last_name", "email", "phone_number", "password", "role"},
      *              @OA\Property(property="first_name", ref="#/components/schemas/User/properties/first_name"),
      *              @OA\Property(property="last_name", ref="#/components/schemas/User/properties/last_name"),
      *              @OA\Property(property="email", ref="#/components/schemas/User/properties/email"),
+     *              @OA\Property(property="role", type="string", enum={"trainer", "client"}, example="trainer"),
      *              @OA\Property(property="phone_number", ref="#/components/schemas/User/properties/phone_number"),
      *              @OA\Property(property="password", ref="#/components/schemas/User/properties/password"),
      *          ),

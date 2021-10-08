@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\User;
 
+use App\Enums\UserRoles;
 use App\Http\Responses\User\UserLoginResponse;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserCreate extends FormRequest
 {
@@ -31,6 +33,7 @@ class UserCreate extends FormRequest
             'password' => 'required|string|min:6',
             'first_name' => 'required|string|min:2|max:32',
             'last_name' => 'required|string|min:2|max:32',
+            'role'      => ['required', 'string', Rule::in(UserRoles::getValues())]
         ];
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TrainerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,15 @@ Route::middleware(['api'])->group(function($router) {
         Route::post('register', [AuthController::class, 'register']);
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::get('profile', [AuthController::class, 'profile']);
+
+        Route::group(['prefix' => 'trainers'], function () {
+            Route::get('/', [TrainerController::class, 'getAll']);
+
+            Route::group(['prefix' => '{id}'], function () {
+                Route::get('/', [TrainerController::class, 'getById']);
+            });
+        });
+
     });
 
 });

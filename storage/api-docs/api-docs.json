@@ -85,7 +85,8 @@
                                     "last_name",
                                     "email",
                                     "phone_number",
-                                    "password"
+                                    "password",
+                                    "role"
                                 ],
                                 "properties": {
                                     "first_name": {
@@ -96,6 +97,14 @@
                                     },
                                     "email": {
                                         "$ref": "#/components/schemas/User/properties/email"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "enum": [
+                                            "trainer",
+                                            "client"
+                                        ],
+                                        "example": "trainer"
                                     },
                                     "phone_number": {
                                         "$ref": "#/components/schemas/User/properties/phone_number"
@@ -182,6 +191,158 @@
                     }
                 ]
             }
+        },
+        "/api/v1/trainers": {
+            "get": {
+                "tags": [
+                    "Trainer"
+                ],
+                "summary": "Returns list of trainers",
+                "description": "Returns list of trainers",
+                "operationId": "getAllTrainer",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Items per page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succefully found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 3
+                                        },
+                                        "page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "total_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "limit": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "trainers": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 7
+                                                    },
+                                                    "created_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-09-02T12:57:04.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/trainers/{id}": {
+            "get": {
+                "tags": [
+                    "Trainer"
+                ],
+                "summary": "Returns trainer by id",
+                "description": "Returns trainer by id",
+                "operationId": "getTrainer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Trainer id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succefully found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 3
+                                        },
+                                        "page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "total_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "limit": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "trainers": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 7
+                                                    },
+                                                    "created_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-09-02T12:57:04.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -233,13 +394,45 @@
                 },
                 "type": "object"
             },
-            "User": {
+            "Trainer": {
                 "required": [
                     "first_name",
                     "last_name",
                     "email",
                     "phone_number",
                     "password"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "user_id": {
+                        "description": "Refernce to user relation",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/created_at"
+                    },
+                    "updated_at": {
+                        "$ref": "#/components/schemas/BaseModel/properties/updated_at"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            },
+            "User": {
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "phone_number",
+                    "password",
+                    "role"
                 ],
                 "properties": {
                     "id": {
@@ -256,6 +449,14 @@
                     "phone_number": {
                         "type": "string",
                         "example": "0990619649"
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "trainer",
+                            "client"
+                        ],
+                        "example": "trainer"
                     },
                     "password": {
                         "type": "string",

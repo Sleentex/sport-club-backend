@@ -12,11 +12,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  *
  * @OA\Schema(
- * required={"first_name", "last_name", "email", "phone_number", "password"},
+ * required={"first_name", "last_name", "email", "phone_number", "password", "role"},
  * @OA\Xml(name="User"),
  * @OA\Property(property="id", type="integer", readOnly="true", example="1"),
  * @OA\Property(property="email", type="string", format="email", description="User unique email address", example="user@gmail.com"),
  * @OA\Property(property="phone_number", type="string", example = "0990619649"),
+ * @OA\Property(property="role", type="string", enum={"trainer", "client"}, example="trainer"),
  * @OA\Property(property="password", type="string", example = "password"),
  * @OA\Property(property="first_name", type="string", example="Harry"),
  * @OA\Property(property="last_name", type="string", example="Potter"),
@@ -40,6 +41,7 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
         'phone_number',
         'first_name',
