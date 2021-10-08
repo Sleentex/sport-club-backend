@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,9 +31,18 @@ Route::middleware(['api'])->group(function($router) {
 
         Route::group(['prefix' => 'trainers'], function () {
             Route::get('/', [TrainerController::class, 'getAll']);
+            Route::post('/add-training', [TrainingController::class, 'addTraining']);
 
             Route::group(['prefix' => '{id}'], function () {
                 Route::get('/', [TrainerController::class, 'getById']);
+
+            });
+        });
+
+        Route::group(['prefix' => 'trainings'], function () {
+            Route::post('/', [TrainingController::class, 'create']);
+
+            Route::group(['prefix' => '{id}'], function () {
             });
         });
 
