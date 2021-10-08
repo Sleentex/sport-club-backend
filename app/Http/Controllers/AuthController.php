@@ -75,7 +75,23 @@ class AuthController extends Controller
      *      @OA\Response(
      *          response=201,
      *          description="Successfully created",
-     *          @OA\JsonContent(ref="#/components/schemas/UserLoginResponse")
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status_code", type="integer", example=200),
+     *              @OA\Property(property="access_token", type="string", example="eyJ0iOiJIUzI1NiJ9.eyJpc3In0.brg-LiJskiu_rRCx40S00DXqcQA"),
+     *              @OA\Property(property="token_type", type="string", example="bearer"),
+     *              @OA\Property(property="expires_in", type="integer", example=3600),
+     *              @OA\Property(property="user", type="object",
+     *              	@OA\Property(property="id", type="integer", example=5),
+     *              	@OA\Property(property="email", type="string", example="user5@gmail.com"),
+     *              	@OA\Property(property="role", type="string", example="client"),
+     *              	@OA\Property(property="phone_number", type="string", example="0990619645"),
+     *              	@OA\Property(property="first_name", type="string", example="Harry"),
+     *              	@OA\Property(property="last_name", type="string", example="Potter"),
+     *              	@OA\Property(property="email_verified_at", type="object", example=null),
+     *              	@OA\Property(property="created_at", type="datetime", example="2021-10-08T19:41:31.000000Z"),
+     *              	@OA\Property(property="updated_at", type="datetime", example="2021-10-08T19:41:31.000000Z"),
+     *              ),
+     *          ),
      *     )
      *    )
      *
@@ -98,8 +114,18 @@ class AuthController extends Controller
      *     @OA\Response(
      *          response=200,
      *          description="Returns user's profile (also in user can be additional fields if user is customer or executor)",
-     *          @OA\JsonContent(ref="#/components/schemas/UserLoginResponse")
-     *      )
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="integer", example=1),
+     *              @OA\Property(property="email", type="string", example="user@gmail.com"),
+     *              @OA\Property(property="role", type="string", example="trainer"),
+     *              @OA\Property(property="phone_number", type="string", example="0990619649"),
+     *              @OA\Property(property="first_name", type="string", example="Harry"),
+     *              @OA\Property(property="last_name", type="string", example="Potter"),
+     *              @OA\Property(property="email_verified_at", type="object", example=null),
+     *              @OA\Property(property="created_at", type="datetime", example="2021-10-08T14:46:50.000000Z"),
+     *              @OA\Property(property="updated_at", type="datetime", example="2021-10-08T14:46:50.000000Z"),
+     *          ),
+     *     ),
      * )
      */
     function profile(Request $request)
