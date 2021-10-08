@@ -14,4 +14,9 @@ class ClientTraining extends Model
         'training_id',
         'status',
     ];
+
+    public function trainer()
+    {
+        return $this->belongsTo(Training::class);
+    }
 }
