@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 /**
- * @OA\Info(title="Experts api", version="1.0")
+ * @OA\Info(title="Sport Club api", version="1.0")
  */
 
 class Controller extends BaseController
