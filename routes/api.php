@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
@@ -33,6 +34,15 @@ Route::middleware(['api'])->group(function($router) {
 
             Route::group(['prefix' => '{id}'], function () {
                 Route::get('/', [TrainerController::class, 'getById']);
+                Route::get('/trainings', [TrainerController::class, 'getAllTrainings']);
+            });
+        });
+
+        Route::group(['prefix' => 'clients'], function () {
+            Route::get('/trainings', [ClientController::class, 'getAllTrainings']);
+
+            Route::group(['prefix' => '{id}'], function () {
+                Route::get('/', [ClientController::class, 'getById']);
             });
         });
 

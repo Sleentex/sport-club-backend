@@ -5,6 +5,7 @@ namespace App\Http\Repositories\Trainers;
 
 
 use App\Http\Repositories\Trainers\Actions\GetAll;
+use App\Http\Repositories\Trainers\Actions\GetAllTrainings;
 use App\Http\Repositories\Trainers\Actions\GetById;
 
 class TrainerRepository
@@ -17,5 +18,10 @@ class TrainerRepository
     public static function getById($id)
     {
         return GetById::perform($id);
+    }
+
+    public static function getAllTrainings($options)
+    {
+        return GetAllTrainings::perform($options);
     }
 }

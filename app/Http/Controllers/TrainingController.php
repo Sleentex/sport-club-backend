@@ -15,7 +15,6 @@ class TrainingController extends Controller
         $this->middleware('auth:api')->only(['joinTraining', 'addTraining', 'getAll', 'cancelRecordTraining', 'cancelTraining']);
         $this->middleware('verify.client')->only(['joinTraining', 'cancelRecordTraining']);
         $this->middleware('verify.trainer')->only(['addTraining', 'cancelTraining']);
-
     }
 
     // need to change

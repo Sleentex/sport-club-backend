@@ -289,6 +289,119 @@
                 ]
             }
         },
+        "/api/v1/clients/trainings": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Returns list of client trainings",
+                "description": "Returns list of client trainings",
+                "operationId": "getAllClientTrainings",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Items per page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succefully found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "total_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "limit": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "records": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "trainer_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "start_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-10-23 13:00:00"
+                                                    },
+                                                    "finish_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-10-23 15:00:00"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "pending"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-10-08T15:32:51.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-10-08T18:43:44.000000Z"
+                                                    },
+                                                    "client_id": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "training_id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/trainers": {
             "get": {
                 "tags": [
@@ -400,6 +513,171 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/v1/trainers/{id}/trainings": {
+            "get": {
+                "tags": [
+                    "Trainer"
+                ],
+                "summary": "Returns list of trainer trainings",
+                "description": "Returns list of trainer trainings",
+                "operationId": "getAllTrainerTrainings",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Trainer id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "from_datetime",
+                        "in": "query",
+                        "description": "Datetime format: Y-m-d H:i:s",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2021-10-23 13:00:00"
+                    },
+                    {
+                        "name": "to_datetime",
+                        "in": "query",
+                        "description": "Datetime format: Y-m-d H:i:s",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2021-10-23 15:00:00"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Items per page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succefully found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 3
+                                        },
+                                        "page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "total_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "limit": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "trainings": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "trainer_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "start_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-10-09 21:44:43"
+                                                    },
+                                                    "finish_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-10-10 13:50:35"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "pending"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-10-08T14:47:13.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-10-08T18:44:52.000000Z"
+                                                    },
+                                                    "records": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "client_id": {
+                                                                    "type": "integer",
+                                                                    "example": 2
+                                                                },
+                                                                "training_id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "status": {
+                                                                    "type": "string",
+                                                                    "example": "pending"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "datetime",
+                                                                    "example": "2021-10-08T15:30:48.000000Z"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "datetime",
+                                                                    "example": "2021-10-08T18:44:52.000000Z"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/trainings": {
